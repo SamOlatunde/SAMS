@@ -1,1 +1,1 @@
-# Yamm-Replica
+# SAMS (Samuel's Automated Mail System)
