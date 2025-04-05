@@ -1,0 +1,426 @@
+    1  man 2 write
+    2  man 2 read
+    3  man 2 lseek
+    4  nano
+    5  touch book
+    6  touch sop.c
+    7  sudo apt install mpich
+    8  mpi
+    9  clr
+   10  cls
+   11  clear
+   12  mpi
+   13  mpi.h
+   14  sudo apt-get install libcr-dev mpich2-doc
+   15  sudo su
+   16  su
+   17  [sudo] password for woodie:
+   18  Sorry, try again.[sudo] password for woodie:
+   19  Sorry, try again.
+   20  help
+   21  reset
+   22  sudo 
+   23  passwd
+   24  root
+   25  su
+   26  cd ..
+   27  cd /
+   28  cd
+   29  cd //
+   30  cd ..
+   31  ls
+   32  pwd 
+   33  pws bin
+   34  vdk
+   35  passwd woodie
+   36  sudo apt-get install libcr-dev mpich2 mpich2-doc
+   37  mpi.h
+   38  mpi
+   39  mpi.h
+   40  ls
+   41  sd
+   42  su
+   43  sudo password root
+   44  sudo passwd root
+   45  su
+   46  ls
+   47  pwd book
+   48  cd ..
+   49  ls
+   50  cd /
+   51  ls
+   52  cd /
+   53  ls
+   54  cd /
+   55  ls
+   56  pwd bin
+   57  sudo apt install mpich
+   58  ls
+   59  cd ..
+   60  cd..
+   61  cd ..
+   62  cd c
+   63  ls
+   64  cd Users
+   65  ls
+   66  cd User
+   67  ls
+   68  cd Repositories/
+   69  ls
+   70  cd Parallel-Programming-/
+   71  cd assignment\ 1/
+   72  ls
+   73  cd parallel/
+   74  ls
+   75  mpicc SamuelOlatundeParallelV1.c -o a.exe
+   76  mpiexec -16 ./a.exe
+   77  mpiexec -n 16 ./a.exe
+   78  ls
+   79  cd ..
+   80  ls
+   81  cd downloads
+   82  ls
+   83  mpicc ICH1.c -o a.exe
+   84  mpiexec -n 10 ./a.exe
+   85  mpicc ICH1.c -o a.exe
+   86  mpiexec -n 10 ./a.exe
+   87  mpicc ICH1.c -o a.exe
+   88  mpiexec -n 10 ./a.exe
+   89  cd ..
+   90  cd..
+   91  cd ..
+   92  ls
+   93  cd Users
+   94  ls
+   95  cd User
+   96  cd Repositories/
+   97  cd Parallel-Programming-/
+   98  cd assigment\ 2/
+   99  cd 16-1024
+  100  ls
+  101  cd Olatunde_Orru/
+  102  cd 16-1024/
+  103  ls
+  104  mpicc Olatunde_Orru_MPIVer_16_1024.c -o a.exe
+  105  mpicc Olatunde_Orru_MPIVer_16_1024.c -o a.exe -lm
+  106  mpiexec -n 16 ./a.exe
+  107  mpicc Olatunde_Orru_MPIVer_16_1024.c -o a.exe -lm
+  108  mpiexec -n 16 ./a.exe
+  109  mpicc Olatunde_Orru_MPIVer_16_1024.c -o a.exe -lm
+  110  mpiexec -n 16 ./a.exe
+  111  cd ..
+  112  cd..
+  113  cd ..
+  114  ls
+  115  //*****************************************************************
+  116  // End of Semester Project 
+  117  // Name: Samuel Olatunde , and Sunil Rasaily 
+  118  // GPU Programming Date: Date of Submission (11/28/2022)
+  119  //******************************************************************
+  120  // Computes the temparture distrubtion of a square metal sheet with 
+  121  // edge temperatures known
+  122  //******************************************************************
+  123  #include<stdio.h>
+  124  #include"mpi.h"
+  125  #include"timer.h"
+  126  #include<stdlib.h>
+  127  #include<cmath>
+  128  //error tolerance 
+  129  const float eT  = 0.00001;
+  130  // limit for the max number of iterations
+  131  #define limit 15
+  132  double checkSum(float * h, int N)
+  133  {     double sum = 0.0;     for (int i = 0; i < N; i++)
+  134  }
+  135  void print(float * a, int N)
+  136  {     for (int i = 0; i < N; i++)
+  137  }
+  138  typedef struct
+  139  {   int p; // total number of processes;   MPI_Comm comm; //communicator for entire grid;   MPI_Comm row_comm; //Communicator for my row;   MPI_Comm col_comm;//communicator for my col  //Edge point flags ;   int first_row;   int last_row;   int first_column;   int last_column;   int q; // order of grid;   int my_row; //my row number ;   int my_col;// my column number;   int my_rank;  // my rank in the grid communicator ;   // MPI_Comm first_row;   // MPI_Comm last_row;   // MPI_Comm first_column;   // MPI_Comm last_column; }GRID_INFO_TYPE; void Setup_grid(GRID_INFO_TYPE * grid);
+  140  //Protypes 
+  141  void initMetalPlate(/*float *h,*/ float * g,float edgeTemp, int N);
+  142  void calcIntTempDistribution(float * h,float *g, int N);
+  143  int converged (float newValue, float oldValue );
+  144  int main(int argc, char ** argv)
+  145  {     MPI_Init(&argc,&argv);
+  146  }
+  147  //*******************************************************************
+  148  // Name::Setup_grid()
+  149  // Parameters: 
+  150  // 
+  151  //********************************************************************
+  152  void Setup_grid(GRID_INFO_TYPE * grid)
+  153  {   int old_rank;    int dimensions[2];    int periods[2];    int reorder =1;    int coordinates[2];    int varying_coords[2];        //Set up Global Grid Information;    MPI_Comm_size(MPI_COMM_WORLD, &(grid->p));
+  154  }
+  155  //*******************************************************************
+  156  // Name::calcIntTempDistribution()
+  157  // Parameters: 2 float pointers
+  158  // Calculates the temparture of interior point by find the avergae 
+  159  // of the four adjacent points 
+  160  //********************************************************************
+  161  void calcIntTempDistribution(float *h,float *g, int N)
+  162  {    int iteration = 0;        int Continue;    do 
+  163  //    printf("Blah");
+  164  //    printf("%d\n", iteration);
+  165  }
+  166  //*******************************************************************
+  167  // Name::converged()
+  168  // Parameters: 2 floats
+  169  // Tests for convergence of two points. Returns true if the error is 
+  170  // within error tolerance; false otherwise 
+  171  //********************************************************************
+  172  // bool converged (float newValue, float oldValue )
+  173  {     float er = (newValue-oldValue)/newValue;
+  174  }
+  175  //*******************************************************************
+  176  // Name::initMetalPlate()
+  177  // Parameters: 1 2d float array, 1 float
+  178  // Initializes the metal sheet with the intial values of the edges
+  179  // and guess values for interior points 
+  180  //********************************************************************
+  181  void initMetalPlate(/*float *h,*/ float * g, float edgeTemp, int N)
+  182  {    //we reduce the temparture by this value with every ;    // outer loop iteration;    float reduceFactor = edgeTemp/N;    int row = 0;    int col;    for( int i = 0; i < (N/2); i++)
+  183  }
+  184  ls
+  185  cd ..
+  186  ls
+  187  cd ..
+  188  ls
+  189  cd User
+  190  cd Users
+  191  ls
+  192  cd User
+  193  ls
+  194  cd Repositories
+  195  cd Parallel-Programming
+  196  cd "Parallel-Programming"
+  197  cd Parallel-Programming-/
+  198  cd ..
+  199  cd Parallel-Programming
+  200  cd Parallel-Programming-
+  201  ls
+  202  cd "assignment 4"
+  203  cd "assignment4"
+  204  ls
+  205  cd ..
+  206  ls
+  207  cd endProject/
+  208  cd ..
+  209  cd endProject/
+  210  ls
+  211  cd parallel/
+  212  ls
+  213  LS
+  214  ls
+  215  mpicc heatPar.c -o d.exe 
+  216  mpicc heatPar.c -o d.exe -lm
+  217  mpiexec -n 16 ./d.exe
+  218  mpicc heatPar.c -o d.exe -lm
+  219  mpiexec -n 16 ./d.exe
+  220  mpicc heatPar.c -o d.exe -lm
+  221  mpiexec -n 16 ./d.exe
+  222  mpicc heatPar.c -o d.exe -lm
+  223  cd  ..
+  224  cd ..
+  225  cd User
+  226  cd Users
+  227  cd User
+  228  ls
+  229  cd Parallel-Programming-/
+  230  ls
+  231  cd endProject/
+  232  ls
+  233  cd parallel 
+  234  mpicc heatPar.c -o d.exe -lm
+  235  mpiexec -n 16 ./d.exe
+  236  mpicc heatPar.c -o d.exe -lm
+  237  mpiexec -n 16 ./d.exe
+  238  mpicc heatPar.c -o d.exe -lm
+  239  mpiexec -n 16 ./d.exe
+  240  .NET --version
+  241  dotnet --version
+  242  dotnet --version
+  243  sudo apt install dotnet-host-8.0
+  244  dotnet --version
+  245  dotnet
+  246  dotnet --version
+  247  cat /usr/lib/dotnet/host/fxr
+  248  ls $HOME
+  249  ls $HOME/..
+  250  ls $HOME/../..
+  251  ls $HOME/../../lib
+  252  ls $HOME/../../lib/dotnet
+  253  echo $PATH
+  254  echo $PATH | grep dotnet
+  255  dotnet
+  256  dotnet --version
+  257  which dotnet
+  258  echo $PATH | grep dotnet
+  259  echo DOTNET_ROOT
+  260  echo $DOTNET_ROOT
+  261  echo $DOTNET_ROOT=/usr/bin/dotnet
+  262  export DOTNET_ROOT=/usr/bin/dotnet
+  263  echo $DOTNET_ROOT
+  264  cat ~/bash.rc
+  265  cat ~/.bashrc
+  266  cat >> ~/.bashrc
+  267  cat ~/.bashrc
+  268  ~/.bashrc
+  269  sudo ~/.bashrc
+  270  source ~/.bashrc
+  271  dotnet --version
+  272  touch dnet
+  273  open dnet
+  274  source dnet 
+  275  sudo apt remove --purge dotnet* aspnet* || sudo dnf remove dotnet* aspnet*
+  276  p1env/Scripts/activate
+  277  which python
+  278  python --version
+  279  which python3
+  280  ls
+  281  rmdir -r p1env
+  282  man rmdir
+  283  man rmdir(2)
+  284  rm p1env
+  285  rmdir p1env
+  286  rimdir --help
+  287  rmdir --help
+  288  rmdir -R p1env
+  289  rmdir -r p1env
+  290  rm -rf p1env
+  291  ps aux|grep python
+  292  rm -rf p1env
+  293  python
+  294  python3 -m venv p1env
+  295  pi
+  296  pip
+  297  sudo apt install python3-pip
+  298  pip
+  299  sudo apt install python3-pip
+  300  apt update
+  301  apt-get update
+  302  sudo fuser -v /var/lib/apt/lists/lock
+  303  sudo echo /var/lib/apt/lists/lock
+  304  echo $HOME
+  305  cd /
+  306  cd ..
+  307  ls
+  308  cd .
+  309  cd mnt
+  310  ls
+  311  cd c
+  312  ls -l /var/lib/apt/lists/lock
+  313  sudo apt update
+  314  pip
+  315  sudo apt install python3-pip
+  316  pip
+  317  python3 -m venv p1env
+  318  ensure pip
+  319  esnsurepip
+  320  python --version
+  321  python3 --version
+  322  python3 --help
+  323  python3 --help |less
+  324  sudo apt install pythom3.10-venv
+  325  sudo apt install pythom3-venv
+  326  sudo apt install python3.10-venv
+  327  python3 -m venv p1env
+  328  p1env/Scripts/activate
+  329  source p1env/bin/activate
+  330  pwd p1env
+  331  pwd
+  332  cd p1env
+  333  cd ..
+  334  ls
+  335  deactivate
+  336  rm -rf p1env
+  337  l
+  338  cd Users
+  339  ls
+  340  cd User
+  341  ls
+  342  cd Repositories
+  343  ls
+  344  cd P01
+  345  ls
+  346  ls fileSystem/
+  347  python3 -m venv p1env
+  348  p1env/lib/activate
+  349  p1env/bin/activate
+  350  ./p1env/bin/activate
+  351  source ./p1env/bin/activate
+  352  python3 -u "c:\Users\User\Repositories\P03\src\generate_input.py"
+  353  pthon3 -m venv 3env
+  354  python3 -m venv 3env
+  355  3env/bin/activate
+  356  source 3env/bin/activate
+  357  ls
+  358  cd src
+  359  ls
+  360  python3 generate_input.py 
+  361  print(5)
+  362  python3 generate_input.py 
+  363  python3 ./input generation/generate_input.py 
+  364  python3 generate_input.py 
+  365  python3 ./input_generation/generate_input.py 
+  366  python3 ./scheduling/starter.py 
+  367  cd scheduling/
+  368  ls
+  369  python3 cpu_jobs.py
+  370  pip install requests
+  371  python3 cpu_jobs.py
+  372  pip isntall rich
+  373  pip install rich
+  374  python3 cpu_jobs.py
+  375  python3 ./scheduling/starter.py
+  376  ls
+  377  python3 starter.py 
+  378  python3 cpu_jobs.py 
+  379  python3 starter.py 
+  380  python3 rr.py
+  381  ls
+  382  python3 starter.py
+  383  pip -m rich
+  384  python3 -m rich
+  385  locals()
+  386  source ./3env/bin/activate
+  387  python3 3env
+  388  python3 src/c.py
+  389  ls
+  390  cd src
+  391  ls
+  392  cd scheduling/
+  393  ls
+  394  python3 starter.py
+  395  python3 rr.py
+  396  python3 starter.py
+  397  python3 rr.py
+  398  python3 starter.py
+  399  python3 mlfq.py
+  400  python -m rich
+  401  python3 -m rich
+  402  ls
+  403  source 3env/bin/activate
+  404  ls
+  405  cd src
+  406  ls
+  407  cd scheduling/
+  408  ls
+  409  python3 mlfq.py
+  410  ps
+  411  ps aux
+  412  kill 3045
+  413  ps aux
+  414  kill -9 3045
+  415  ps aux
+  416  kill -9 3046
+  417  ls
+  418  python3 mlfq.py 
+  419  ps aux
+  420  kill -9 3116
+  421  ps aux
+  422  python3 mlfq.py 
+  423  CLEAR
+  424  clear
+  425  history
+  426  history >> s.txt
